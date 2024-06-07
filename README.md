@@ -1,0 +1,1 @@
+You must extract file QLHS.zip , when it complete , you open Visual Studio , click file and open solution ,find QLHS file and open it , you select QLHS.sln to open , when you wanna run it , you must click tool and find NugetPacket Manager , click NugetPacket Manager Console and type this command Update-Database , when it notice Build Succeed , you can run solution
