@@ -13,5 +13,7 @@ namespace QLHS.Models
         public long StudentID { get; set; }
         [StringLength(100)]
         public string StudentPW { get; set; }
+        public long UserRole { get; set; } 
+
     }
 }

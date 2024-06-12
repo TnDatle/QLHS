@@ -1,4 +1,6 @@
-﻿namespace QLHS
+﻿using _12;
+
+namespace QLHS
 {
     public partial class fLoginTC : Form
     {
@@ -43,15 +45,25 @@
                     if (long.TryParse(teacherIDString, out long teacherID))
                     {
                         var user = db.LoginTC
-                                     .FirstOrDefault(u => u.TeacherID == teacherID && u.TeacherPW == teacherPW);
+                                      .FirstOrDefault(u => u.TeacherID == teacherID && u.TeacherPW == teacherPW);
+
 
                         if (user != null)
                         {
                             MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            // Chuyển sang form chính hoặc thực hiện các hành động sau khi đăng nhập thành công
-                            fMain f = new fMain();
+
+                            // Ép kiểu từ int sang UserRole
+                            UserRole userRole = (UserRole)user.UserRole;
+
+                            // Thiết lập vai trò hiện tại
+                            UserManager.CurrentUserRole = userRole;
+
+                            // Chuyển sang form chính
+                            fMain f = new fMain(userRole.ToString());
                             f.Show();
                             this.Hide();
+
+                        MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
@@ -60,7 +72,7 @@
                     }
                     else
                     {
-                        MessageBox.Show("Định dạng mã giáo không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Định dạng mã giáo viên không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -71,3 +83,4 @@
         }
     }
 }
+

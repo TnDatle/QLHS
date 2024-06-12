@@ -13,5 +13,6 @@ namespace QLHS.Models
         public long TeacherID { get; set; }
         [StringLength(100)]
         public string TeacherPW { get; set; }
+        public long UserRole { get; set; }
     }
 }

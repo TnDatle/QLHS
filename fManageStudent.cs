@@ -4,65 +4,86 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using QLHS.Models;
+using System.Diagnostics.Eventing.Reader;
 
 namespace _12
 {
+    public enum UserRole
+    {
+        Student = 1,
+        Teacher = 2
+    }
+
+    public static class UserManager
+    {
+        public static UserRole CurrentUserRole { get; set; }
+    }
+
     public partial class fManageStudent : Form
     {
         private TextBox txtStudentID;
 
-
         public fManageStudent()
         {
             InitializeComponent();
-
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "Delete")
+            if (e.RowIndex >= 0)
             {
-                try
+                if (UserManager.CurrentUserRole != UserRole.Teacher)
                 {
-                    long StudentID = Convert.ToInt64(dataGridView1
-                    .Rows[e.RowIndex].Cells["StudentID"].Value);
-                    using (var db = new EFDbContext())
+                    MessageBox.Show("Bạn không có quyền thực hiện hành động này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (dataGridView1.Columns[e.ColumnIndex].Name == "Delete")
+                {
+                    try
                     {
-                        Student student = db.Student.Single(c => c.StudentID == StudentID);
-                        if (MessageBox.Show("Bạn muốn xóa sinh viên " + student.StudentName, "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        long StudentID = Convert.ToInt64(dataGridView1.Rows[e.RowIndex].Cells["StudentID"].Value);
+                        using (var db = new EFDbContext())
                         {
-                            db.Student.Remove(student);
-                            db.SaveChanges();
-                            fManageStudent_Activated(sender, e);
+                            Student student = db.Student.Single(c => c.StudentID == StudentID);
+                            if (MessageBox.Show("Bạn muốn xóa sinh viên " + student.StudentName, "Xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                db.Student.Remove(student);
+                                db.SaveChanges();
+                                fManageStudent_Activated(sender, e); // Gọi lại phương thức để cập nhật DataGridView
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi, chưa xóa được? Error: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
+                else if (dataGridView1.Columns[e.ColumnIndex].Name == "Edit")
                 {
-                    MessageBox.Show("Lỗi, chưa xóa được? Error: " + ex.Message);
+                    if (Utility.IsOpeningForm("fEditStudent"))
+                        return;
+                    long studentID = Convert.ToInt64(dataGridView1.Rows[e.RowIndex].Cells["StudentID"].Value);
+                    string studentIDString = studentID.ToString();
+
+                    fEditStudent f = new fEditStudent(studentIDString);
+                    f.MdiParent = this.MdiParent; // Đặt form cha cho fEditStudent
+                    f.Show();
                 }
-            }
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "Edit")
-            {
-                if (Utility.IsOpeningForm("fEditStudent"))
-                    return;
-                long studentID = Convert.ToInt64(dataGridView1.Rows[e.RowIndex].Cells["StudentID"].Value);
-                string studentIDString = studentID.ToString();
-                fEditStudent f = new fEditStudent(studentIDString)
-                {
-                    MdiParent = this.MdiParent
-                };
-                f.Show();
             }
         }
 
-
         private void btNew_Click(object sender, EventArgs e)
         {
-            fNewStudent f = new fNewStudent
+            if (UserManager.CurrentUserRole == UserRole.Student)
             {
-                MdiParent = this.MdiParent
-            };
+                MessageBox.Show("Bạn không có quyền thực hiện hành động này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (Utility.IsOpeningForm("fNewStudent"))
+                return;
+            fNewStudent f = new fNewStudent();
+            f.MdiParent = this.MdiParent;
             f.Show();
         }
 
@@ -107,7 +128,5 @@ namespace _12
                 MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }
-

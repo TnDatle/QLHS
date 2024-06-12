@@ -222,9 +222,9 @@
             label6.AutoSize = true;
             label6.Location = new Point(472, 173);
             label6.Name = "label6";
-            label6.Size = new Size(62, 20);
+            label6.Size = new Size(66, 20);
             label6.TabIndex = 27;
-            label6.Text = "Địa chỉ :";
+            label6.Text = "Nơi sinh:";
             // 
             // label3
             // 

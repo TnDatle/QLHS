@@ -4,6 +4,8 @@ using System.Xml.Linq;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using QLHS.Models;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace QLHS
 {
@@ -20,67 +22,106 @@ namespace QLHS
         {
             try
             {
-                // Kiểm tra các trường bắt buộc
-                if (string.IsNullOrWhiteSpace(txtStudentName.Text) ||
-                    string.IsNullOrWhiteSpace(txtAddress.Text) ||
-                    string.IsNullOrWhiteSpace(txtPhoneNumber.Text))
-                {
-                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin sinh viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // Kiểm tra dữ liệu đầu vào
+                if (!IsValidInput())
                     return;
-                }
 
-                // Kiểm tra xem giới tính đã được chọn hay chưa
-                if (!rbMale.Checked && !rbFemale.Checked)
-                {
-                    MessageBox.Show("Vui lòng chọn giới tính của sinh viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Tạo đối tượng Student mới và gán các thuộc tính
-                Student student = new Student
-                {
-                    StudentID = string.IsNullOrWhiteSpace(txtStudentID.Text) ? 0 : Convert.ToInt64(txtStudentID.Text), // Chuyển đổi từ string sang long
-                    StudentName = txtStudentName.Text,
-                    Address = txtAddress.Text,
-                    PhoneNumber = txtPhoneNumber.Text,
-                    Email = txtEmail.Text,
-                    DayOfBirth = dtBirthday.Value.Date,
-                };
-
-                // Gán giới tính cho Student
-                if (rbMale.Checked)
-                {
-                    student.Gender = "Nam";
-                }
-                else if (rbFemale.Checked)
-                {
-                    student.Gender = "Nữ";
-                }
-
-                // Thêm sinh viên vào DbContext và lưu vào cơ sở dữ liệu
                 using (var db = new EFDbContext())
                 {
-                    db.Student.Add(student); // Thêm sinh viên vào bối cảnh mô hình
-                    db.SaveChanges(); // Lưu các thay đổi vào cơ sở dữ liệu
+                    // Tạo một đối tượng Student từ dữ liệu người dùng
+                    Student student = CreateStudentObject();
+
+                    // Thêm đối tượng Student vào DbContext và lưu vào cơ sở dữ liệu
+                    db.Student.Add(student);
+                    db.SaveChanges();
                 }
 
                 // Xóa trống và thiết lập lại các điều khiển
-                txtStudentName.Text = null;
-                txtAddress.Text = null;
-                txtPhoneNumber.Text = null;
-                txtEmail.Text = null;
-                rbMale.Checked = false;
-                rbFemale.Checked = false;
+                ResetControls();
 
                 MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            catch (DbUpdateException ex)
+            {
+                // Handle database update errors
+                MessageBox.Show("Lưu thất bại: Database update error. " + ex.InnerException?.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (ValidationException ex)
+            {
+                // Handle validation errors
+                MessageBox.Show("Lưu thất bại: Validation error. " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
+                // Handle other general errors
                 MessageBox.Show("Lưu thất bại: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            txtStudentName.Focus();
+        }
+        private bool IsValidInput()
+        {
+            if (string.IsNullOrWhiteSpace(txtStudentName.Text) ||
+                string.IsNullOrWhiteSpace(txtAddress.Text) ||
+                string.IsNullOrWhiteSpace(txtPhoneNumber.Text))
+            {
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin sinh viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (!rbMale.Checked && !rbFemale.Checked)
+            {
+                MessageBox.Show("Vui lòng chọn giới tính của sinh viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            long studentID;
+            if (!long.TryParse(txtStudentID.Text, out studentID))
+            {
+                MessageBox.Show("Mã sinh viên không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (studentID != 0 && IsStudentIDDuplicate(studentID)) // Check for duplicate only if studentID is not 0
+            {
+                MessageBox.Show("Mã sinh viên đã tồn tại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
         }
 
+        private Student CreateStudentObject()
+        {
+            return new Student
+            {
+                StudentID = string.IsNullOrWhiteSpace(txtStudentID.Text) ? 0 : Convert.ToInt64(txtStudentID.Text),
+                StudentName = txtStudentName.Text,
+                Address = txtAddress.Text,
+                PhoneNumber = txtPhoneNumber.Text,
+                Email = txtEmail.Text,
+                DayOfBirth = dtBirthday.Value.Date,
+                Gender = rbMale.Checked ? "Nam" : "Nữ"
+            };
+        }
 
+        private void ResetControls()
+        {
+            txtStudentName.Text = "";
+            txtAddress.Text = "";
+            txtPhoneNumber.Text = "";
+            txtEmail.Text = "";
+            rbMale.Checked = false;
+            rbFemale.Checked = false;
+        }
+
+        private bool IsStudentIDDuplicate(long StudentID)
+        {
+            using (var db = new EFDbContext())
+            {
+                // Kiểm tra xem có sinh viên nào đã tồn tại trong cơ sở dữ liệu với mã đã cho chưa
+                return db.Student.Any(s => s.StudentID == StudentID);
+            }
+        }
 
         private void btClose_Click(object sender, EventArgs e)
         {

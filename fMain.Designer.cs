@@ -36,6 +36,7 @@
             quảnLýHọcPhầnToolStripMenuItem = new ToolStripMenuItem();
             điểmSốToolStripMenuItem = new ToolStripMenuItem();
             bảngĐiểmToolStripMenuItem = new ToolStripMenuItem();
+            lkSignOut = new LinkLabel();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -87,8 +88,21 @@
             // bảngĐiểmToolStripMenuItem
             // 
             bảngĐiểmToolStripMenuItem.Name = "bảngĐiểmToolStripMenuItem";
-            bảngĐiểmToolStripMenuItem.Size = new Size(168, 26);
+            bảngĐiểmToolStripMenuItem.Size = new Size(224, 26);
             bảngĐiểmToolStripMenuItem.Text = "&Bảng điểm ";
+            bảngĐiểmToolStripMenuItem.Click += bảngĐiểmToolStripMenuItem_Click;
+            // 
+            // lkSignOut
+            // 
+            lkSignOut.AutoSize = true;
+            lkSignOut.Font = new Font("Segoe UI", 12F);
+            lkSignOut.Location = new Point(12, 586);
+            lkSignOut.Name = "lkSignOut";
+            lkSignOut.Size = new Size(101, 28);
+            lkSignOut.TabIndex = 6;
+            lkSignOut.TabStop = true;
+            lkSignOut.Text = "Đăng xuất";
+            lkSignOut.LinkClicked += lkSignOut_LinkClicked;
             // 
             // fMain
             // 
@@ -97,6 +111,7 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Zoom;
             ClientSize = new Size(1209, 653);
+            Controls.Add(lkSignOut);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "fMain";
@@ -117,5 +132,6 @@
         private ToolStripMenuItem quảnLýHọcPhầnToolStripMenuItem;
         private ToolStripMenuItem điểmSốToolStripMenuItem;
         private ToolStripMenuItem bảngĐiểmToolStripMenuItem;
+        private LinkLabel lkSignOut;
     }
 }

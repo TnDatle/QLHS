@@ -1,5 +1,8 @@
 ﻿using _12;
 using QLHS.Models;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace QLHS
 {
@@ -20,21 +23,22 @@ namespace QLHS
 
         private void ckShow_CheckedChanged(object sender, EventArgs e)
         {
-            if (ckShow.Checked)
-            {
-                // Hiển thị mật khẩu
-                txtStudentPW.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                // Ẩn mật khẩu
-                txtStudentPW.UseSystemPasswordChar = true;
-            }
+            // Hiển thị hoặc ẩn mật khẩu
+            txtStudentPW.UseSystemPasswordChar = !ckShow.Checked;
         }
 
         private void btLogin_Click(object sender, EventArgs e)
         {
-            CheckLogin(txtStudentID.Text, txtStudentPW.Text);
+            string studentIDString = txtStudentID.Text.Trim();
+            string studentPW = txtStudentPW.Text;
+
+            if (string.IsNullOrEmpty(studentIDString) || string.IsNullOrEmpty(studentPW))
+            {
+                MessageBox.Show("Vui lòng nhập mã sinh viên và mật khẩu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            CheckLogin(studentIDString, studentPW);
         }
 
         private void CheckLogin(string studentIDString, string studentPW)
@@ -51,8 +55,15 @@ namespace QLHS
                         if (user != null)
                         {
                             MessageBox.Show("Đăng nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            // Chuyển sang form chính hoặc thực hiện các hành động sau khi đăng nhập thành công
-                            fMain f = new fMain();
+
+                            // Ép kiểu từ int sang UserRole
+                            UserRole userRole = (UserRole)user.UserRole;
+
+                            // Thiết lập vai trò hiện tại
+                            UserManager.CurrentUserRole = userRole;
+
+                            // Chuyển sang form chính
+                            fMain f = new fMain(userRole.ToString());
                             f.Show();
                             this.Hide();
                         }
@@ -69,13 +80,13 @@ namespace QLHS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Có lỗi xảy ra: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void fLogin_Load(object sender, EventArgs e)
         {
-
+            //Viết thuộc tính load nếu cần thiết
         }
     }
 }
