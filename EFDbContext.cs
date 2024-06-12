@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
@@ -11,11 +11,10 @@ namespace QLHS
         public DbSet<Student> Student { get; set; }
         public DbSet<LoginTC> LoginTC { get; set; }
         public DbSet<Login> Login { get; set; }
-        public DbSet<Teacher> Teacher { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<Semester> Semester { get; set; }
-        public DbSet<Grades> Grades { get; set; }
         public DbSet<Department> Department { get; set; }
+        public DbSet<Grades> Grades { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -98,26 +97,31 @@ namespace QLHS
                 {
                     StudentID = 2254810177,
                     StudentPW = "21112004",
+                    UserRole = 1,
                 },
                 new Login
                 {
                     StudentID = 2254810159,
                     StudentPW = "01072004",
+                    UserRole = 1,
                 },
                 new Login
                 {
                     StudentID = 2254810196,
                     StudentPW = "28022004",
+                    UserRole = 1,
                 },
                 new Login
                 {
                     StudentID = 2254810246,
                     StudentPW = "16012004",
+                    UserRole = 1,
                 },
                 new Login
                 {
                     StudentID = 2254810192,
                     StudentPW = "10022004",
+                    UserRole = 1,
                 });
 
             modelBuilder.Entity<LoginTC>().HasData(
@@ -125,16 +129,19 @@ namespace QLHS
                 {
                     TeacherID = 1000002024,
                     TeacherPW = "HVHK@2023",
+                    UserRole = 2,
                 },
                 new LoginTC
                 {
                     TeacherID = 2000002024,
                     TeacherPW = "HVHK@2024",
+                    UserRole = 2,
                 },
                 new LoginTC
                 {
                     TeacherID = 3000002024,
                     TeacherPW = "HVHK@2025",
+                    UserRole = 2,
                 });
 
             modelBuilder.Entity<Semester>().HasData(
@@ -145,15 +152,14 @@ namespace QLHS
                 new Semester { SemesterID = 5, SemesterName = "Học Kỳ 5" },
                 new Semester { SemesterID = 6, SemesterName = "Học Kỳ 6" },
                 new Semester { SemesterID = 7, SemesterName = "Học Kỳ 7" },
-                new Semester { SemesterID = 8, SemesterName = "Học Kỳ 8" });
+                new Semester { SemesterID = 8, SemesterName = "Học Kỳ 8" }
+                );
 
             modelBuilder.Entity<Department>().HasData(
                 new Department { DepartmentID = 1, DepartmentName = "Tất cả" },
                 new Department { DepartmentID = 2, DepartmentName = "Khoa Công Nghệ Thông Tin" },
                 new Department { DepartmentID = 3, DepartmentName = "Khoa Cơ bản" },
                 new Department { DepartmentID = 4, DepartmentName = "Khoa Ngoại Ngữ" });
- 
-                
 
             modelBuilder.Entity<Course>().HasData(
                 //Học Kỳ 1
@@ -293,82 +299,82 @@ namespace QLHS
                      DepartmentID = 4,
                  },
 
-                  //Học kỳ 3
+                 //Học kỳ 3
                  new Course
-                  {
-                      CourseID = 0101000015,
-                      CourseName = "Giáo dục quốc phòng- an ninh *",
-                      Credits = "8",
-                      DepartmentName = "",
+                 {
+                     CourseID = 0101000015,
+                     CourseName = "Giáo dục quốc phòng- an ninh *",
+                     Credits = "8",
+                     DepartmentName = "",
                      SemesterName = "Học Kỳ 3",
                      SemesterID = 3,
                  },
                  new Course
-                   {
-                       CourseID = 0101000017,
-                       CourseName = "Cấu trúc dữ liệu và thuật giải",
-                       Credits = "3",
-                       DepartmentName = "Khoa Công Nghệ Thông Tin",
+                 {
+                     CourseID = 0101000017,
+                     CourseName = "Cấu trúc dữ liệu và thuật giải",
+                     Credits = "3",
+                     DepartmentName = "Khoa Công Nghệ Thông Tin",
                      SemesterName = "Học Kỳ 3",
                      SemesterID = 3,
                      DepartmentID = 2,
                  },
                  new Course
                  {
-                        CourseID = 0101000233,
-                        CourseName = "Giáo dục thể chất-Aerobic ",
-                        Credits = "1",
-                        DepartmentName = "Khoa Cơ Bản",
+                     CourseID = 0101000233,
+                     CourseName = "Giáo dục thể chất-Aerobic ",
+                     Credits = "1",
+                     DepartmentName = "Khoa Cơ Bản",
                      SemesterName = "Học Kỳ 3",
                      SemesterID = 3,
                      DepartmentID = 3,
                  },
                  new Course
                  {
-                         CourseID = 0101000244,
-                         CourseName = "Chủ nghĩa xã hội khoa học",
-                         Credits = "2",
-                         DepartmentName = "Khoa Cơ Bản",
-                         SemesterName = "Học Kỳ 3",
-                        SemesterID = 3,
+                     CourseID = 0101000244,
+                     CourseName = "Chủ nghĩa xã hội khoa học",
+                     Credits = "2",
+                     DepartmentName = "Khoa Cơ Bản",
+                     SemesterName = "Học Kỳ 3",
+                     SemesterID = 3,
                      DepartmentID = 3,
                  },
                  new Course
                  {
-                         CourseID = 0101000395,
-                         CourseName = "Hệ điều hành",
-                         Credits = "3",
-                         DepartmentName = "Khoa Công Nghệ Thông Tin",
+                     CourseID = 0101000395,
+                     CourseName = "Hệ điều hành",
+                     Credits = "3",
+                     DepartmentName = "Khoa Công Nghệ Thông Tin",
                      SemesterName = "Học Kỳ 3",
                      SemesterID = 3,
                      DepartmentID = 2,
                  },
                  new Course
                  {
-                         CourseID = 0101000846,
-                         CourseName = "Toán rời rạc",
-                         Credits = "2",
-                         DepartmentName = "Khoa Công Nghệ Thông Tin",
+                     CourseID = 0101000846,
+                     CourseName = "Toán rời rạc",
+                     Credits = "2",
+                     DepartmentName = "Khoa Công Nghệ Thông Tin",
                      SemesterName = "Học Kỳ 3",
                      SemesterID = 3,
                      DepartmentID = 2,
                  },
                  new Course
                  {
-                         CourseID = 0101000848,
-                         CourseName = "Lập trình hướng đối tượng",
-                         Credits = "3",
-                         DepartmentName = "Khoa Công Nghệ Thông Tin",
+                     CourseID = 0101000848,
+                     CourseName = "Lập trình hướng đối tượng",
+                     Credits = "3",
+                     DepartmentName = "Khoa Công Nghệ Thông Tin",
                      SemesterName = "Học Kỳ 3",
                      SemesterID = 3,
                      DepartmentID = 2,
                  },
                  new Course
-                 { 
-                         CourseID = 0101001095,
-                         CourseName = "Tiếng Anh 2",
-                         Credits = "3",
-                         DepartmentName = "Khoa Ngoại Ngữ",
+                 {
+                     CourseID = 0101001095,
+                     CourseName = "Tiếng Anh 2",
+                     Credits = "3",
+                     DepartmentName = "Khoa Ngoại Ngữ",
                      SemesterName = "Học Kỳ 3",
                      SemesterID = 3,
                      DepartmentID = 4,
@@ -461,20 +467,20 @@ namespace QLHS
                   },
                   new Course
                   {
-                       CourseID = 0101000851,
-                       CourseName = "Đồ án cơ sở ngành CNTT",
-                       Credits = "3",
-                       DepartmentName = "Khoa Công Nghệ Thông Tin",
+                      CourseID = 0101000851,
+                      CourseName = "Đồ án cơ sở ngành CNTT",
+                      Credits = "3",
+                      DepartmentName = "Khoa Công Nghệ Thông Tin",
                       SemesterName = "Học Kỳ 5",
                       SemesterID = 5,
                       DepartmentID = 2,
                   },
                   new Course
                   {
-                     CourseID = 0101000856,
-                     CourseName = "Công nghệ phần mềm",
-                     Credits = "3",
-                     DepartmentName = "Khoa Công Nghệ Thông Tin",
+                      CourseID = 0101000856,
+                      CourseName = "Công nghệ phần mềm",
+                      Credits = "3",
+                      DepartmentName = "Khoa Công Nghệ Thông Tin",
                       SemesterName = "Học Kỳ 5",
                       SemesterID = 5,
                       DepartmentID = 2,
@@ -562,7 +568,7 @@ namespace QLHS
                     SemesterID = 6,
                     DepartmentID = 2,
                 },
-             
+
                 new Course
                 {
                     CourseID = 0101000853,
@@ -781,6 +787,346 @@ namespace QLHS
                  });
 
             //End Course
+            
+            modelBuilder.Entity<Grades>().HasData(
+                //Tổng Quan về hàng không dân dụng
+                new Grades {
+                    GradeID= 1, 
+                    SemesterID = 1 ,
+                    StudentID = 2254810177 , 
+                    StudentName ="Lê Tấn Đạt " ,
+                    CourseID = 0101000001 , 
+                    CourseName = "Tổng quan về Hàng không dân dụng",
+                    MidScores = 7.00 ,
+                    FinalScores = 6.5 
+                },
+                new Grades
+                {
+                    GradeID = 2,
+                    SemesterID = 1,
+                    StudentID = 2254810159,
+                    StudentName = "Đặng Nhật Hào",
+                    CourseID = 0101000001,
+                    CourseName = "Tổng quan về Hàng không dân dụng",
+                    MidScores = 7.50,
+                    FinalScores = 7.00 
+                },
+                new Grades
+                {
+                    GradeID = 3,
+                    SemesterID = 1,
+                    StudentID = 2254810196,
+                    StudentName = "Nguyễn Quốc Trí",
+                    CourseID = 0101000001,
+                    CourseName = "Tổng quan về Hàng không dân dụng",
+                    MidScores = 10.00,
+                    FinalScores = 5.00
+                },
+                new Grades
+                {
+                    GradeID = 4,
+                    SemesterID = 1,
+                    StudentID = 2254810246,
+                    StudentName = "Trần Đình Anh Duy",
+                    CourseID = 0101000001,
+                    CourseName = "Tổng quan về Hàng không dân dụng",
+                    MidScores = 8.00,
+                    FinalScores = 7.00
+                },
+                new Grades
+                {
+                    GradeID = 5,
+                    SemesterID = 1,
+                    StudentID = 2254810192,
+                    StudentName = "Trần Huy Hoàng",
+                    CourseID = 0101000001,
+                    CourseName = "Tổng quan về Hàng không dân dụng",
+                    MidScores = 7.00,
+                    FinalScores = 9.00 
+                },
+
+                //Sức nhanh
+
+                new Grades
+                {
+                    GradeID = 6,
+                    SemesterID = 1,
+                    StudentID = 2254810177,
+                    StudentName = "Lê Tấn Đạt",
+                    CourseID = 0101000009,
+                    CourseName = "Giáo dục thể chất - Sức nhanh",
+                    FinalScores = 6.50
+                },
+                new Grades
+                {
+                    GradeID = 7,
+                    SemesterID = 1,
+                    StudentID = 2254810159,
+                    StudentName = "Đặng Nhật Hào",
+                    CourseID = 0101000009,
+                    CourseName = "Giáo dục thể chất - Sức nhanh",
+                    FinalScores = 6.80
+                },
+                new Grades
+                {
+                    GradeID = 8,
+                    SemesterID = 1,
+                    StudentID = 2254810246,
+                    StudentName = "Trần Đình Anh Duy",
+                    CourseID = 0101000009,
+                    CourseName = "Giáo dục thể chất - Sức nhanh",
+                    FinalScores = 7.00
+                },
+                new Grades
+                {
+                    GradeID = 9,
+                    SemesterID = 1,
+                    StudentID = 2254810196,
+                    StudentName = "Nguyễn Quốc Trí",
+                    CourseID = 0101000009,
+                    CourseName = "Giáo dục thể chất - Sức nhanh",
+                    FinalScores = 6.00
+                },
+                new Grades
+                {
+                    GradeID = 10,
+                    SemesterID = 1,
+                    StudentID = 2254810192,
+                    StudentName = "Trần Huy Hoàng",
+                    CourseID = 0101000009,
+                    CourseName = "Giáo dục thể chất - Sức nhanh",
+                    FinalScores = 7.00
+                },
+
+                //Cơ sở dữ liệu 
+                new Grades
+                {
+                    GradeID = 11,
+                    SemesterID = 1,
+                    StudentID = 2254810177,
+                    StudentName = "Lê Tấn Đạt",
+                    CourseID = 0101000373,
+                    CourseName = "Cơ sở dữ liệu",
+                    MidScores = 6.00 ,
+                    FinalScores = 6.30
+                },
+                new Grades
+                {
+                    GradeID = 12,
+                    SemesterID = 1,
+                    StudentID = 2254810159,
+                    StudentName = "Đặng Nhật Hào",
+                    CourseID = 0101000373,
+                    CourseName = "Cơ sở dữ liệu",
+                    MidScores = 6.50 ,
+                    FinalScores = 6.0
+                },
+                 new Grades
+                 {
+                     GradeID = 13,
+                     SemesterID = 1,
+                     StudentID = 2254810196,
+                     StudentName = "Nguyễn Quốc Trí",
+                     CourseID = 0101000373,
+                     CourseName = "Cơ sở dữ liệu",
+                     MidScores = 9.00,
+                     FinalScores = 6.50
+                 },
+
+                 new Grades
+                 {
+                     GradeID = 14,
+                     SemesterID = 1,
+                     StudentID = 2254810246,
+                     StudentName = "Trần Đình Anh Duy",
+                     CourseID = 0101000373,
+                     CourseName = "Cơ sở dữ liệu",
+                     MidScores = 7.00,
+                     FinalScores = 7.50
+                 },
+                 new Grades
+                 {
+                     GradeID = 15,
+                     SemesterID = 1,
+                     StudentID = 2254810192,
+                     StudentName = "Trần Huy Hoàng",
+                     CourseID = 0101000373,
+                     CourseName = "Cơ sở dữ liệu",
+                     MidScores = 7.50,
+                     FinalScores = 5.50
+                 },
+
+                 //Toán cơ sở
+                 new Grades
+                 {
+                     GradeID = 16,
+                     SemesterID = 1,
+                     StudentID = 2254810177,
+                     StudentName = "Lê Tấn Đạt",
+                     CourseID = 0101000517,
+                     CourseName = "Toán cơ sở",
+                     MidScores = 5.00 ,
+                     FinalScores = 6.50
+                 },
+                 new Grades
+                 {
+                     GradeID = 17,
+                     SemesterID = 1,
+                     StudentID = 2254810159,
+                     StudentName = "Đặng Nhật Hào",
+                     CourseID = 0101000517,
+                     CourseName = "Toán cơ sở",
+                     MidScores = 6.00,
+                     FinalScores = 5.50
+                 },
+                 new Grades
+                 {
+                     GradeID = 18,
+                     SemesterID = 1,
+                     StudentID = 2254810246,
+                     StudentName = "Trần Đình Anh Duy",
+                     CourseID = 0101000517,
+                     CourseName = "Toán cơ sở",
+                     MidScores = 7.00 ,
+                     FinalScores = 7.50
+                 },
+                 new Grades
+                 {
+                     GradeID = 19,
+                     SemesterID = 1,
+                     StudentID = 2254810196,
+                     StudentName = "Nguyễn Quốc Trí",
+                     CourseID = 0101000517,
+                     CourseName = "Toán cơ sở",
+                     MidScores = 5.50,
+                     FinalScores = 7.50
+                 },
+                 new Grades
+                 {
+                     GradeID = 20,
+                     SemesterID = 1,
+                     StudentID = 2254810177,
+                     StudentName = "Trần Huy Hoàng",
+                     CourseID = 0101000517,
+                     CourseName = "Toán cơ sở",
+                     MidScores = 6.00,
+                     FinalScores = 6.50
+                 },
+                 //Nhập môn ngành CNTT
+                 new Grades
+                 {
+                     GradeID = 21,
+                     SemesterID = 1,
+                     StudentID = 2254810177,
+                     StudentName = "Lê Tấn Đạt",
+                     CourseID = 0101000525,
+                     CourseName = "Nhập môn ngành CNTT",
+                     MidScores = 7.00,
+                     FinalScores = 5.50
+                 },
+                 new Grades
+                 {
+                     GradeID = 22,
+                     SemesterID = 1,
+                     StudentID = 2254810177,
+                     StudentName = "Đặng Nhật Hào",
+                     CourseID = 0101000525,
+                     CourseName = "Nhập môn ngành CNTT",
+                     MidScores = 7.00,
+                     FinalScores = 6.50
+                 },
+                 new Grades
+                 {
+                     GradeID = 23,
+                     SemesterID = 1,
+                     StudentID = 2254810246,
+                     StudentName = "Trần Đình Anh Duy",
+                     CourseID = 0101000525,
+                     CourseName = "Nhập môn ngành CNTT",
+                     MidScores = 8.00,
+                     FinalScores = 7.50
+                 },
+                 new Grades
+                 {
+                     GradeID = 24,
+                     SemesterID = 1,
+                     StudentID = 2254810196,
+                     StudentName = "Nguyễn Quốc Trí",
+                     CourseID = 0101000525,
+                     CourseName = "Nhập môn ngành CNTT",
+                     MidScores = 8.00,
+                     FinalScores = 6.80
+                 },
+                 new Grades
+                 {
+                     GradeID = 25,
+                     SemesterID = 1,
+                     StudentID = 2254810192,
+                     StudentName = "Trần Huy Hoàng",
+                     CourseID = 0101000525,
+                     CourseName = "Nhập môn ngành CNTT",
+                     MidScores = 7.00,
+                     FinalScores = 7.50
+                 },
+
+                  //Triết học Mác - Lenin 
+                  new Grades
+                  {
+                      GradeID = 26,
+                      SemesterID = 1,
+                      StudentID = 2254810177,
+                      StudentName = "Lê Tấn Đạt",
+                      CourseID = 0101000746,
+                      CourseName = "Triết học Mác-Lênin",
+                      MidScores = 8.50,
+                      FinalScores = 5.40
+                  },
+                  new Grades
+                  {
+                      GradeID = 27,
+                      SemesterID = 1,
+                      StudentID = 2254810159,
+                      StudentName = "Đặng Nhật Hàov",
+                      CourseID = 0101000746,
+                      CourseName = "Triết học Mác-Lênin",
+                      MidScores = 7.00,
+                      FinalScores = 6.50
+                  },
+                  new Grades
+                  {
+                      GradeID = 28,
+                      SemesterID = 1,
+                      StudentID = 2254810246,
+                      StudentName = "Trần Đình Anh Duy",
+                      CourseID = 0101000746,
+                      CourseName = "Triết học Mác-Lênin",
+                      MidScores = 9.00,
+                      FinalScores = 7.50
+                  },
+                  new Grades
+                  {
+                      GradeID = 29,
+                      SemesterID = 1,
+                      StudentID = 2254810196,
+                      StudentName = "Nguyễn Quốc Trí",
+                      CourseID = 0101000746,
+                      CourseName = "Triết học Mác-Lênin",
+                      MidScores = 8.00,
+                      FinalScores = 7.50
+                  },
+                  new Grades
+                  {
+                      GradeID = 30,
+                      SemesterID = 1,
+                      StudentID = 2254810192,
+                      StudentName = "Trần Huy Hoàng",
+                      CourseID = 0101000746,
+                      CourseName = "Triết học Mác-Lênin",
+                      MidScores = 8.00,
+                      FinalScores = 5.50
+                  }
+                );
+            //End 1st Semester Grades
         }
     }
 }
