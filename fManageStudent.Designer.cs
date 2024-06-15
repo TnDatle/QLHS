@@ -22,6 +22,7 @@
             txtName = new TextBox();
             btNew = new Button();
             dataGridView1 = new DataGridView();
+            ID = new DataGridViewTextBoxColumn();
             StudentID = new DataGridViewTextBoxColumn();
             StudentName = new DataGridViewTextBoxColumn();
             Gender = new DataGridViewTextBoxColumn();
@@ -99,6 +100,15 @@
             dataGridView1.Size = new Size(2253, 611);
             dataGridView1.TabIndex = 7;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // ID
+            // 
+            StudentID.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            StudentID.DataPropertyName = "ID";
+            StudentID.HeaderText = "Id";
+            StudentID.MinimumWidth = 6;
+            StudentID.Name = "ID";
+            StudentID.Width = 122;
             // 
             // StudentID
             // 
@@ -232,6 +242,7 @@
         private System.Windows.Forms.Button btNew;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.BindingSource migration1BindingSource;
+        private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn StudentID;
         private DataGridViewTextBoxColumn StudentName;
         private DataGridViewTextBoxColumn Gender;

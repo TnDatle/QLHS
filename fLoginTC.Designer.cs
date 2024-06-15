@@ -131,7 +131,7 @@
             Controls.Add(label1);
             Controls.Add(label2);
             Name = "fLoginTC";
-            Text = "Đăng nhập ";
+            Text = "Đăng nhập [Giảng Viên]";
             ResumeLayout(false);
             PerformLayout();
         }

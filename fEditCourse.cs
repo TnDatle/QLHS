@@ -43,8 +43,14 @@ namespace QLHS
                 {
                     // Load the course data from the database using the CourseID
                     Course = db.Course.Single(p => p.CourseID == CourseID);
+
                     // Set the form title with the CourseID
                     Text += " - Mã môn học " + Course.CourseID.ToString();
+
+                    // Populate txtCourseID with CourseID
+                    txtCourseID.Text = Course.CourseID.ToString();
+                    txtCourseID.Enabled = false; // Disable txtCourseID
+
                     // Populate the text boxes with the course data
                     txtCourseName.Text = Course.CourseName;
                     txtCredits.Text = Course.Credits;
@@ -67,6 +73,7 @@ namespace QLHS
                 MessageBox.Show("Có lỗi xảy ra khi tải thông tin môn học: " + ex.Message);
             }
         }
+
 
         private void btSave_Click(object sender, EventArgs e)
         {

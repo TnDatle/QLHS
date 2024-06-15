@@ -133,7 +133,7 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "fLogin";
-            Text = "Đăng nhập ";
+            Text = "Đăng nhập [Học Sinh]";
             Load += fLogin_Load;
             ResumeLayout(false);
             PerformLayout();

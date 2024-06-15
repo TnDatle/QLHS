@@ -88,7 +88,7 @@
             // bảngĐiểmToolStripMenuItem
             // 
             bảngĐiểmToolStripMenuItem.Name = "bảngĐiểmToolStripMenuItem";
-            bảngĐiểmToolStripMenuItem.Size = new Size(224, 26);
+            bảngĐiểmToolStripMenuItem.Size = new Size(168, 26);
             bảngĐiểmToolStripMenuItem.Text = "&Bảng điểm ";
             bảngĐiểmToolStripMenuItem.Click += bảngĐiểmToolStripMenuItem_Click;
             // 
@@ -96,7 +96,7 @@
             // 
             lkSignOut.AutoSize = true;
             lkSignOut.Font = new Font("Segoe UI", 12F);
-            lkSignOut.Location = new Point(12, 586);
+            lkSignOut.Location = new Point(0, 616);
             lkSignOut.Name = "lkSignOut";
             lkSignOut.Size = new Size(101, 28);
             lkSignOut.TabIndex = 6;

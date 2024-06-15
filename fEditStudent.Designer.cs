@@ -154,6 +154,7 @@
             txtPhoneNumber.Name = "txtPhoneNumber";
             txtPhoneNumber.Size = new Size(206, 27);
             txtPhoneNumber.TabIndex = 43;
+            txtPhoneNumber.Validating += txtPhoneNumber_Validating;
             // 
             // txtAddress
             // 

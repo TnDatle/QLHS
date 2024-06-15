@@ -52,6 +52,7 @@
             label2 = new Label();
             label1 = new Label();
             toolTip1 = new ToolTip(components);
+            label10 = new Label();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -147,7 +148,6 @@
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(206, 27);
             txtEmail.TabIndex = 8;
-            txtEmail.Validating += txtEmail_Validating;
             // 
             // txtPhoneNumber
             // 
@@ -156,6 +156,7 @@
             txtPhoneNumber.Name = "txtPhoneNumber";
             txtPhoneNumber.Size = new Size(206, 27);
             txtPhoneNumber.TabIndex = 7;
+            txtPhoneNumber.Validating += txtPhoneNumber_Validating;
             // 
             // txtAddress
             // 
@@ -262,12 +263,23 @@
             label1.TabIndex = 19;
             label1.Text = "Mã số sinh viên :";
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.ForeColor = Color.Red;
+            label10.Location = new Point(472, 306);
+            label10.Name = "label10";
+            label10.Size = new Size(362, 20);
+            label10.TabIndex = 38;
+            label10.Text = "* Email sẽ được cấp tự động khi nhập mã số sinh viên";
+            // 
             // fNewStudent
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(908, 498);
             ControlBox = false;
+            Controls.Add(label10);
             Controls.Add(groupBox1);
             Controls.Add(dtBirthday);
             Controls.Add(btClose);
@@ -321,5 +333,6 @@
         private Label label2;
         private Label label1;
         private ToolTip toolTip1;
+        private Label label10;
     }
 }

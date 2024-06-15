@@ -29,14 +29,15 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            button1 = new Button();
+            btNew = new Button();
             cbSemester = new ComboBox();
-            textBox1 = new TextBox();
-            button2 = new Button();
+            txtStudentID = new TextBox();
+            btFind = new Button();
             dataGridView1 = new DataGridView();
             label2 = new Label();
             label3 = new Label();
-            GradeID = new DataGridViewTextBoxColumn();
+            label4 = new Label();
+            cbCourseName = new ComboBox();
             StudentID = new DataGridViewTextBoxColumn();
             StudentName = new DataGridViewTextBoxColumn();
             CourseID = new DataGridViewTextBoxColumn();
@@ -44,9 +45,10 @@
             MidScore = new DataGridViewTextBoxColumn();
             FinalScore = new DataGridViewTextBoxColumn();
             TotalScore = new DataGridViewTextBoxColumn();
-            Classification = new DataGridViewTextBoxColumn();
+            StudentCategory = new DataGridViewTextBoxColumn();
             Edit = new DataGridViewButtonColumn();
             Delete = new DataGridViewButtonColumn();
+            GradeID = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -59,17 +61,17 @@
             label1.Size = new Size(486, 45);
             label1.TabIndex = 0;
             label1.Text = "Quản Lí Điểm Số Sinh Viên";
-            label1.Click += label1_Click;
             // 
-            // button1
+            // btNew
             // 
-            button1.Location = new Point(14, 107);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(103, 44);
-            button1.TabIndex = 1;
-            button1.Text = "Nhập Mới";
-            button1.UseVisualStyleBackColor = true;
+            btNew.Location = new Point(12, 94);
+            btNew.Margin = new Padding(3, 4, 3, 4);
+            btNew.Name = "btNew";
+            btNew.Size = new Size(103, 44);
+            btNew.TabIndex = 1;
+            btNew.Text = "Nhập Mới";
+            btNew.UseVisualStyleBackColor = true;
+            btNew.Click += btNew_Click;
             // 
             // cbSemester
             // 
@@ -81,62 +83,76 @@
             cbSemester.TabIndex = 2;
             cbSemester.SelectedIndexChanged += cbSemester_SelectedIndexChanged;
             // 
-            // textBox1
+            // txtStudentID
             // 
-            textBox1.Location = new Point(601, 115);
-            textBox1.Margin = new Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(189, 27);
-            textBox1.TabIndex = 3;
+            txtStudentID.Location = new Point(903, 114);
+            txtStudentID.Margin = new Padding(3, 4, 3, 4);
+            txtStudentID.Name = "txtStudentID";
+            txtStudentID.Size = new Size(189, 27);
+            txtStudentID.TabIndex = 3;
             // 
-            // button2
+            // btFind
             // 
-            button2.Location = new Point(798, 115);
-            button2.Margin = new Padding(3, 4, 3, 4);
-            button2.Name = "button2";
-            button2.Size = new Size(86, 31);
-            button2.TabIndex = 4;
-            button2.Text = "Tìm";
-            button2.UseVisualStyleBackColor = true;
+            btFind.Location = new Point(1098, 114);
+            btFind.Margin = new Padding(3, 4, 3, 4);
+            btFind.Name = "btFind";
+            btFind.Size = new Size(86, 31);
+            btFind.TabIndex = 4;
+            btFind.Text = "Tìm";
+            btFind.UseVisualStyleBackColor = true;
+            btFind.Click += btFind_Click;
             // 
             // dataGridView1
             // 
+            dataGridView1.BackgroundColor = SystemColors.Control;
+            dataGridView1.BorderStyle = BorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { GradeID, StudentID, StudentName, CourseID, CourseName, MidScore, FinalScore, TotalScore, Classification, Edit, Delete });
-            dataGridView1.Location = new Point(14, 209);
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { StudentID, StudentName, CourseID, CourseName, MidScore, FinalScore, TotalScore, StudentCategory, Edit, Delete, GradeID });
+            dataGridView1.Location = new Point(-3, 151);
             dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.ScrollBars = ScrollBars.None;
             dataGridView1.Size = new Size(1377, 570);
             dataGridView1.TabIndex = 5;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(507, 120);
+            label2.Location = new Point(804, 119);
             label2.Name = "label2";
-            label2.Size = new Size(93, 20);
+            label2.Size = new Size(96, 20);
             label2.TabIndex = 6;
-            label2.Text = "Mã Sinh viên";
+            label2.Text = "Mã Sinh viên:";
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Location = new Point(200, 120);
             label3.Name = "label3";
-            label3.Size = new Size(53, 20);
+            label3.Size = new Size(56, 20);
             label3.TabIndex = 7;
-            label3.Text = "Học Kì";
+            label3.Text = "Học Kì:";
             // 
-            // GradeID
+            // label4
             // 
-            GradeID.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            GradeID.DataPropertyName = "GradeID";
-            GradeID.HeaderText = "Mã điểm";
-            GradeID.MinimumWidth = 6;
-            GradeID.Name = "GradeID";
-            GradeID.Width = 97;
+            label4.AutoSize = true;
+            label4.Location = new Point(464, 118);
+            label4.Name = "label4";
+            label4.Size = new Size(73, 20);
+            label4.TabIndex = 8;
+            label4.Text = "Môn Học:";
+            // 
+            // cbCourseName
+            // 
+            cbCourseName.FormattingEnabled = true;
+            cbCourseName.Location = new Point(540, 115);
+            cbCourseName.Margin = new Padding(3, 4, 3, 4);
+            cbCourseName.Name = "cbCourseName";
+            cbCourseName.Size = new Size(138, 28);
+            cbCourseName.TabIndex = 9;
+            cbCourseName.SelectedIndexChanged += cbCourseName_SelectedIndexChanged;
             // 
             // StudentID
             // 
@@ -201,45 +217,59 @@
             TotalScore.Name = "TotalScore";
             TotalScore.Width = 98;
             // 
-            // Classification
+            // StudentCategory
             // 
-            Classification.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Classification.DataPropertyName = "StudentCategory";
-            Classification.HeaderText = "Xếp Loại";
-            Classification.MinimumWidth = 6;
-            Classification.Name = "Classification";
-            Classification.Width = 96;
+            StudentCategory.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            StudentCategory.DataPropertyName = "StudentCategory";
+            StudentCategory.HeaderText = "Xếp Loại";
+            StudentCategory.MinimumWidth = 6;
+            StudentCategory.Name = "StudentCategory";
+            StudentCategory.Width = 96;
             // 
             // Edit
             // 
+            Edit.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             Edit.HeaderText = "Sửa";
             Edit.MinimumWidth = 6;
             Edit.Name = "Edit";
             Edit.Resizable = DataGridViewTriState.True;
             Edit.SortMode = DataGridViewColumnSortMode.Automatic;
+            Edit.Text = "Sửa";
             Edit.UseColumnTextForButtonValue = true;
-            Edit.Width = 125;
+            Edit.Width = 63;
             // 
             // Delete
             // 
+            Delete.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             Delete.HeaderText = "Xóa";
             Delete.MinimumWidth = 6;
             Delete.Name = "Delete";
+            Delete.Text = "Xóa";
             Delete.UseColumnTextForButtonValue = true;
-            Delete.Width = 125;
+            Delete.Width = 41;
+            // 
+            // GradeID
+            // 
+            GradeID.DataPropertyName = "GradeID";
+            GradeID.HeaderText = "Mã điểm";
+            GradeID.MinimumWidth = 6;
+            GradeID.Name = "GradeID";
+            GradeID.Width = 125;
             // 
             // fManageScore
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1403, 780);
+            Controls.Add(cbCourseName);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(dataGridView1);
-            Controls.Add(button2);
-            Controls.Add(textBox1);
+            Controls.Add(btFind);
+            Controls.Add(txtStudentID);
             Controls.Add(cbSemester);
-            Controls.Add(button1);
+            Controls.Add(btNew);
             Controls.Add(label1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "fManageScore";
@@ -255,14 +285,15 @@
         #endregion
 
         private Label label1;
-        private Button button1;
+        private Button btNew;
         private ComboBox cbSemester;
-        private TextBox textBox1;
-        private Button button2;
+        private TextBox txtStudentID;
+        private Button btFind;
         private DataGridView dataGridView1;
         private Label label2;
         private Label label3;
-        private DataGridViewTextBoxColumn GradeID;
+        private Label label4;
+        private ComboBox cbCourseName;
         private DataGridViewTextBoxColumn StudentID;
         private DataGridViewTextBoxColumn StudentName;
         private DataGridViewTextBoxColumn CourseID;
@@ -270,8 +301,9 @@
         private DataGridViewTextBoxColumn MidScore;
         private DataGridViewTextBoxColumn FinalScore;
         private DataGridViewTextBoxColumn TotalScore;
-        private DataGridViewTextBoxColumn Classification;
+        private DataGridViewTextBoxColumn StudentCategory;
         private DataGridViewButtonColumn Edit;
         private DataGridViewButtonColumn Delete;
+        private DataGridViewTextBoxColumn GradeID;
     }
 }

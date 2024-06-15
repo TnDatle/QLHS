@@ -707,29 +707,36 @@ namespace QLHS.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("GradeID"));
 
-                    b.Property<long>("CourseID")
+                    b.Property<long?>("CourseID")
                         .HasColumnType("bigint");
 
                     b.Property<string>("CourseName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<double>("FinalScores")
+                    b.Property<double?>("FinalScores")
                         .HasColumnType("float");
 
-                    b.Property<double>("MidScores")
+                    b.Property<double?>("MidScores")
                         .HasMaxLength(100)
                         .HasColumnType("float");
 
-                    b.Property<long>("SemesterID")
+                    b.Property<long?>("SemesterID")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("StudentID")
+                    b.Property<string>("StudentCategory")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<long?>("StudentID")
                         .HasColumnType("bigint");
 
                     b.Property<string>("StudentName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<double?>("TotalScore")
+                        .HasColumnType("float");
 
                     b.HasKey("GradeID");
 
@@ -738,333 +745,7 @@ namespace QLHS.Migrations
                     b.HasData(
                         new
                         {
-                            GradeID = 1L,
-                            CourseID = 101000001L,
-                            CourseName = "Tổng quan về Hàng không dân dụng",
-                            FinalScores = 6.5,
-                            MidScores = 7.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810177L,
-                            StudentName = "Lê Tấn Đạt "
-                        },
-                        new
-                        {
-                            GradeID = 2L,
-                            CourseID = 101000001L,
-                            CourseName = "Tổng quan về Hàng không dân dụng",
-                            FinalScores = 7.0,
-                            MidScores = 7.5,
-                            SemesterID = 1L,
-                            StudentID = 2254810159L,
-                            StudentName = "Đặng Nhật Hào"
-                        },
-                        new
-                        {
-                            GradeID = 3L,
-                            CourseID = 101000001L,
-                            CourseName = "Tổng quan về Hàng không dân dụng",
-                            FinalScores = 5.0,
-                            MidScores = 10.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810196L,
-                            StudentName = "Nguyễn Quốc Trí"
-                        },
-                        new
-                        {
-                            GradeID = 4L,
-                            CourseID = 101000001L,
-                            CourseName = "Tổng quan về Hàng không dân dụng",
-                            FinalScores = 7.0,
-                            MidScores = 8.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810246L,
-                            StudentName = "Trần Đình Anh Duy"
-                        },
-                        new
-                        {
-                            GradeID = 5L,
-                            CourseID = 101000001L,
-                            CourseName = "Tổng quan về Hàng không dân dụng",
-                            FinalScores = 9.0,
-                            MidScores = 7.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810192L,
-                            StudentName = "Trần Huy Hoàng"
-                        },
-                        new
-                        {
-                            GradeID = 6L,
-                            CourseID = 101000009L,
-                            CourseName = "Giáo dục thể chất - Sức nhanh",
-                            FinalScores = 6.5,
-                            MidScores = 0.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810177L,
-                            StudentName = "Lê Tấn Đạt"
-                        },
-                        new
-                        {
-                            GradeID = 7L,
-                            CourseID = 101000009L,
-                            CourseName = "Giáo dục thể chất - Sức nhanh",
-                            FinalScores = 6.7999999999999998,
-                            MidScores = 0.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810159L,
-                            StudentName = "Đặng Nhật Hào"
-                        },
-                        new
-                        {
-                            GradeID = 8L,
-                            CourseID = 101000009L,
-                            CourseName = "Giáo dục thể chất - Sức nhanh",
-                            FinalScores = 7.0,
-                            MidScores = 0.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810246L,
-                            StudentName = "Trần Đình Anh Duy"
-                        },
-                        new
-                        {
-                            GradeID = 9L,
-                            CourseID = 101000009L,
-                            CourseName = "Giáo dục thể chất - Sức nhanh",
-                            FinalScores = 6.0,
-                            MidScores = 0.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810196L,
-                            StudentName = "Nguyễn Quốc Trí"
-                        },
-                        new
-                        {
-                            GradeID = 10L,
-                            CourseID = 101000009L,
-                            CourseName = "Giáo dục thể chất - Sức nhanh",
-                            FinalScores = 7.0,
-                            MidScores = 0.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810192L,
-                            StudentName = "Trần Huy Hoàng"
-                        },
-                        new
-                        {
-                            GradeID = 11L,
-                            CourseID = 101000373L,
-                            CourseName = "Cơ sở dữ liệu",
-                            FinalScores = 6.2999999999999998,
-                            MidScores = 6.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810177L,
-                            StudentName = "Lê Tấn Đạt"
-                        },
-                        new
-                        {
-                            GradeID = 12L,
-                            CourseID = 101000373L,
-                            CourseName = "Cơ sở dữ liệu",
-                            FinalScores = 6.0,
-                            MidScores = 6.5,
-                            SemesterID = 1L,
-                            StudentID = 2254810159L,
-                            StudentName = "Đặng Nhật Hào"
-                        },
-                        new
-                        {
-                            GradeID = 13L,
-                            CourseID = 101000373L,
-                            CourseName = "Cơ sở dữ liệu",
-                            FinalScores = 6.5,
-                            MidScores = 9.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810196L,
-                            StudentName = "Nguyễn Quốc Trí"
-                        },
-                        new
-                        {
-                            GradeID = 14L,
-                            CourseID = 101000373L,
-                            CourseName = "Cơ sở dữ liệu",
-                            FinalScores = 7.5,
-                            MidScores = 7.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810246L,
-                            StudentName = "Trần Đình Anh Duy"
-                        },
-                        new
-                        {
-                            GradeID = 15L,
-                            CourseID = 101000373L,
-                            CourseName = "Cơ sở dữ liệu",
-                            FinalScores = 5.5,
-                            MidScores = 7.5,
-                            SemesterID = 1L,
-                            StudentID = 2254810192L,
-                            StudentName = "Trần Huy Hoàng"
-                        },
-                        new
-                        {
-                            GradeID = 16L,
-                            CourseID = 101000517L,
-                            CourseName = "Toán cơ sở",
-                            FinalScores = 6.5,
-                            MidScores = 5.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810177L,
-                            StudentName = "Lê Tấn Đạt"
-                        },
-                        new
-                        {
-                            GradeID = 17L,
-                            CourseID = 101000517L,
-                            CourseName = "Toán cơ sở",
-                            FinalScores = 5.5,
-                            MidScores = 6.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810159L,
-                            StudentName = "Đặng Nhật Hào"
-                        },
-                        new
-                        {
-                            GradeID = 18L,
-                            CourseID = 101000517L,
-                            CourseName = "Toán cơ sở",
-                            FinalScores = 7.5,
-                            MidScores = 7.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810246L,
-                            StudentName = "Trần Đình Anh Duy"
-                        },
-                        new
-                        {
-                            GradeID = 19L,
-                            CourseID = 101000517L,
-                            CourseName = "Toán cơ sở",
-                            FinalScores = 7.5,
-                            MidScores = 5.5,
-                            SemesterID = 1L,
-                            StudentID = 2254810196L,
-                            StudentName = "Nguyễn Quốc Trí"
-                        },
-                        new
-                        {
-                            GradeID = 20L,
-                            CourseID = 101000517L,
-                            CourseName = "Toán cơ sở",
-                            FinalScores = 6.5,
-                            MidScores = 6.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810177L,
-                            StudentName = "Trần Huy Hoàng"
-                        },
-                        new
-                        {
-                            GradeID = 21L,
-                            CourseID = 101000525L,
-                            CourseName = "Nhập môn ngành CNTT",
-                            FinalScores = 5.5,
-                            MidScores = 7.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810177L,
-                            StudentName = "Lê Tấn Đạt"
-                        },
-                        new
-                        {
-                            GradeID = 22L,
-                            CourseID = 101000525L,
-                            CourseName = "Nhập môn ngành CNTT",
-                            FinalScores = 6.5,
-                            MidScores = 7.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810177L,
-                            StudentName = "Đặng Nhật Hào"
-                        },
-                        new
-                        {
-                            GradeID = 23L,
-                            CourseID = 101000525L,
-                            CourseName = "Nhập môn ngành CNTT",
-                            FinalScores = 7.5,
-                            MidScores = 8.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810246L,
-                            StudentName = "Trần Đình Anh Duy"
-                        },
-                        new
-                        {
-                            GradeID = 24L,
-                            CourseID = 101000525L,
-                            CourseName = "Nhập môn ngành CNTT",
-                            FinalScores = 6.7999999999999998,
-                            MidScores = 8.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810196L,
-                            StudentName = "Nguyễn Quốc Trí"
-                        },
-                        new
-                        {
-                            GradeID = 25L,
-                            CourseID = 101000525L,
-                            CourseName = "Nhập môn ngành CNTT",
-                            FinalScores = 7.5,
-                            MidScores = 7.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810192L,
-                            StudentName = "Trần Huy Hoàng"
-                        },
-                        new
-                        {
-                            GradeID = 26L,
-                            CourseID = 101000746L,
-                            CourseName = "Triết học Mác-Lênin",
-                            FinalScores = 5.4000000000000004,
-                            MidScores = 8.5,
-                            SemesterID = 1L,
-                            StudentID = 2254810177L,
-                            StudentName = "Lê Tấn Đạt"
-                        },
-                        new
-                        {
-                            GradeID = 27L,
-                            CourseID = 101000746L,
-                            CourseName = "Triết học Mác-Lênin",
-                            FinalScores = 6.5,
-                            MidScores = 7.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810159L,
-                            StudentName = "Đặng Nhật Hàov"
-                        },
-                        new
-                        {
-                            GradeID = 28L,
-                            CourseID = 101000746L,
-                            CourseName = "Triết học Mác-Lênin",
-                            FinalScores = 7.5,
-                            MidScores = 9.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810246L,
-                            StudentName = "Trần Đình Anh Duy"
-                        },
-                        new
-                        {
-                            GradeID = 29L,
-                            CourseID = 101000746L,
-                            CourseName = "Triết học Mác-Lênin",
-                            FinalScores = 7.5,
-                            MidScores = 8.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810196L,
-                            StudentName = "Nguyễn Quốc Trí"
-                        },
-                        new
-                        {
-                            GradeID = 30L,
-                            CourseID = 101000746L,
-                            CourseName = "Triết học Mác-Lênin",
-                            FinalScores = 5.5,
-                            MidScores = 8.0,
-                            SemesterID = 1L,
-                            StudentID = 2254810192L,
-                            StudentName = "Trần Huy Hoàng"
+                            GradeID = 1L
                         });
                 });
 
